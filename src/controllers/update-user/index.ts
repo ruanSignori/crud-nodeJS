@@ -1,4 +1,5 @@
 import { User } from "../../models/user";
+import { badRequest, ok, serverError } from "../helpers";
 import { HttpRequest, HttpResponse, IController } from "../protocols";
 import { IUpdateUserRespository, UpdateUserParams } from "./protocols";
 
@@ -6,23 +7,17 @@ export class UpdateUserController implements IController {
   constructor(private readonly updateUserRepository: IUpdateUserRespository) {}
   async handle(
     httpRequest: HttpRequest<UpdateUserParams>
-  ): Promise<HttpResponse<User>> {
+  ): Promise<HttpResponse<User | string>> {
     try {
       const { id } = httpRequest?.params;
       const { body } = httpRequest!;
 
       if (!body) {
-        return {
-          statusCode: 400,
-          body: "Faltando informações",
-        };
+        return badRequest("Faltando informações");
       }
 
       if (!id) {
-        return {
-          statusCode: 400,
-          body: "Faltando o ID do usuário",
-        };
+        return badRequest("Faltando ID do usuário");
       }
 
       const allowedFieldsToUpdate: (keyof UpdateUserParams)[] = [
@@ -36,23 +31,14 @@ export class UpdateUserController implements IController {
       );
 
       if (someFieldIsNotAllowedToUpdate) {
-        return {
-          statusCode: 400,
-          body: "Algum campo recebido não é permitido",
-        };
+        return badRequest("Campo recebido não é permitido para alteração");
       }
 
       const user = await this.updateUserRepository.updateUser(id, body);
 
-      return {
-        statusCode: 200,
-        body: user,
-      };
+      return ok<User>(user);
     } catch (error) {
-      return {
-        statusCode: 500,
-        body: "Não foi possível concluir a atualização do usuário",
-      };
+      return serverError();
     }
   }
 }
