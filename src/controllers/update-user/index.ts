@@ -25,11 +25,12 @@ export class UpdateUserController implements IUpdateUserController {
         "lastName",
         "password",
       ];
+
       const someFieldIsNotAllowedToUpdate = Object.keys(body).some(
         (key) => !allowedFieldsToUpdate.includes(key as keyof UpdateUserParams)
       );
 
-      if (!someFieldIsNotAllowedToUpdate) {
+      if (someFieldIsNotAllowedToUpdate) {
         return {
           statusCode: 400,
           body: "Algum campo recebido não é permitido",
