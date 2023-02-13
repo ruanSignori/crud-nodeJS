@@ -7,3 +7,8 @@
 - Conventional Commits
 
 # 🛠️Ferramentas utilizadas
+- MongoDB
+- TypeScript
+- Express
+- NodeJS
+
