@@ -25,6 +25,6 @@
 - <a href="https://www.youtube.com/watch?v=RdGxvYN82R4&t=872s&ab_channel=dogcode">Ambiente de Desenvolvimento na Nuvem com o Railway - dogcode</a>
 
 <h3>
-Para fazer deploy desta API, foi utilizada o Railway. <br>
-<a href="https://crud-nodejs-production-c44a.up.railway.app/users">Link de acesso</a>
+Para fazer deploy desta API, foi utilizada o Render. <br>
+<a href="https://crud-nodejs-ftf2.onrender.com/users">Link de acesso</a>
 </h3>
